@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { connect } from 'react-redux';
+import { activateTest, closeTest } from './redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>{this.props.test.title || 'Hello World!'}</h1>
+
+        {this.props.test.title ? (
+          <button onClick={this.props.closeTest}>Exit Foo</button>
+        ) : (
+            <button
+              onClick={ () => this.props.activateTest({ title: "It's Foo Time!" }) }
+            >
+              Click Me!
+            </button>
+          )}
+      </div>
+    );
+  }
 }
 
-export default App;
+// AppContainer.js
+const mapStateToProps = state => ({
+  test: state.test
+});
+
+const mapDispatchToProps = {
+  activateTest,
+  closeTest,
+};
+
+const AppContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+
+export default AppContainer;
