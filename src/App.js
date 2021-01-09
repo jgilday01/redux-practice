@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { activateTest, closeTest } from './redux';
+import { activateTest, closeTest } from './redux/actions';
 
 export class App extends React.Component {
   render() {
